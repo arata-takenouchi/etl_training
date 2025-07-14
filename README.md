@@ -12,8 +12,12 @@
 
 ## セットアップ
 
+### 方法1: ローカル環境（仮想環境）
+
 1. 必要なパッケージをインストール：
 ```bash
+python3 -m venv etl_env
+source etl_env/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -22,11 +26,62 @@ pip install -r requirements.txt
 python simple_etl.py
 ```
 
+### 方法2: Docker環境（推奨）
+
+PC本体に影響を与えないDocker環境で実行できます。
+
+#### 前提条件
+- Docker Desktop がインストールされていること
+
+#### 使用方法
+
+1. **Dockerイメージをビルド**：
+```bash
+./docker-run.sh build
+```
+
+2. **ETLパイプラインを実行**：
+```bash
+./docker-run.sh run
+```
+
+3. **ETLテストを実行**：
+```bash
+./docker-run.sh test
+```
+
+4. **コンテナ内でシェルを起動**（デバッグ用）：
+```bash
+./docker-run.sh shell
+```
+
+5. **クリーンアップ**：
+```bash
+./docker-run.sh clean
+```
+
+#### 便利なコマンド
+
+```bash
+# ヘルプ表示
+./docker-run.sh help
+
+# ログ表示
+./docker-run.sh logs
+
+# 直接Docker Composeを使用
+docker-compose up etl-app    # ETLパイプライン実行
+docker-compose up etl-test   # テスト実行
+```
+
 ## ファイル構成
 
 - `simple_etl.py`: メインのETLパイプライン
 - `sample_data.csv`: サンプルデータ
 - `requirements.txt`: 必要なPythonパッケージ
+- `Dockerfile`: Docker環境の定義
+- `docker-compose.yml`: Docker Compose設定
+- `docker-run.sh`: Docker環境管理スクリプト
 - `output/`: 処理結果の出力ディレクトリ
 
 ## 出力ファイル

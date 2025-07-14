@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  etl-app:
+    build: .
+    container_name: etl-training
+    volumes:
+      # 現在のディレクトリをコンテナにマウント
+      - .:/app
+      # 出力ディレクトリをホストと共有
+      - ./output:/app/output
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python simple_etl.py
+    
+  etl-test:
+    build: .
+    container_name: etl-test
+    volumes:
+      - .:/app
+      - ./output:/app/output
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python test_etl.py
+    depends_on:
+      - etl-app 
