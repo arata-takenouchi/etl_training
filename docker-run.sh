@@ -35,21 +35,21 @@ show_help() {
 # Dockerイメージのビルド
 build_image() {
     print_info "Dockerイメージをビルド中..."
-    docker-compose build
+    docker compose build
     print_success "ビルド完了"
 }
 
 # ETLパイプラインの実行
 run_etl() {
     print_info "ETLパイプラインを実行中..."
-    docker-compose run --rm etl-app
+    docker compose run --rm etl-app
     print_success "ETLパイプライン実行完了"
 }
 
 # ETLテストの実行
 run_test() {
     print_info "ETLテストを実行中..."
-    docker-compose run --rm etl-test
+    docker compose run --rm etl-test
     print_success "ETLテスト実行完了"
 }
 
@@ -62,14 +62,14 @@ run_shell() {
 # クリーンアップ
 clean_up() {
     print_info "コンテナとイメージを削除中..."
-    docker-compose down --rmi all --volumes --remove-orphans
+    docker compose down --rmi all --volumes --remove-orphans
     print_success "クリーンアップ完了"
 }
 
 # ログ表示
 show_logs() {
     print_info "ログを表示中..."
-    docker-compose logs
+    docker compose logs
 }
 
 # メイン処理
